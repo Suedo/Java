@@ -1,0 +1,19 @@
+Design Patterns in the Light of Lambdas
+Venkat Subramaniam
+http://www.agiledeveloper.com
+venkats@agiledeveloper.com
+Twitter: @venkat_s
+
+Topics:
+-Design and design patterns
+-Lambda expressions as a design tool
+-Iterator pattern
+-Lightweight Strategy
+-Delegating using Lambda Expressions
+-Decorating using Lambda Expressions
+-Creating Fluent interfaces using Lambda Expressions
+-Execute Around Method Pattern
+-Summary
+
+Download Code samples from:
+http://www.agiledeveloper.com/downloads.html

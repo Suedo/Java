@@ -1,0 +1,53 @@
+Functional Programming in Java 8
+Venkat Subramaniam
+Email: venkats@agiledeveloper.com
+Twitter: @venkat_s
+http://www.agiledeveloper.com download link
+  
+Topics:
+- The next big thing in Java
+- Why Functional Programming?
+	-Growth of computer applications
+	-Two kinds of complexity
+	-Power and perils of OO and mutable state
+	-Emergence of multiple cores
+- What's wrong with mutable state?	
+  - Error prone
+  - Hard to reason
+  - Hard to make concurrent	
+- What's Functional Programming?
+ - What's old is new again
+ - Assignment-less programming
+ - Immutable state
+ - Functions as first class citizens
+    - Higher-Order functions
+ - Functions with no side-effect
+-What are the benefits?
+-Functional Style vs Purely functional
+ - a look at the languages
+-What does it really mean to code in functional style?
+	-state transformation instead of state mutation
+- What's Lambda expressions?
+- Refactoring from external to internal iterator
+- Fundamental shift: from imperative to functional style
+- Mapping operation - eliminating mutability
+- Declarative is expressive
+  - Tell me what, not how
+-Imperative vs Declarative
+  - how               what
+  - mutate	          transform
+  - side-effect       pure
+  - pass objects      pass functions also
+  - hard to compose   functional composition
+- Lambdas vs. Closures
+- Composing with lambda expressions
+- The lazy evaluations
+- Benefits of the new approach
+  - code clarity
+  - fewer errors
+  - easier parallelization
+- Easy parallelization
+- Summary
+
+You can download this topics list and code examples from:
+	http://www.agiledeveloper.com	 - downloads link
