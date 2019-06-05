@@ -44,13 +44,25 @@ public class Tester {
     }
 
     public static void anagramTest() {
-        List<String> anagrams = Basics.anagrams("god".split(""));
+        List<String> anagrams = Basics.anagrams("abcd".split(""));
         System.out.println(anagrams.size() + "\n" + anagrams);
+    }
+
+    public static void subsequenceTest() {
+        String ip = "abcd";
+        System.out.println("All subsequences of " + ip + ":");
+        Basics.getAllSubsequencesOf(ip.split("")).stream().sorted().forEach(System.out::println);
+    }
+
+    public static void nonUniqueTester() {
+        List<Integer> numbers = Arrays.asList(1, 3, 3, 4, 4, 4, 5, 6);
+        System.out.println(Basics.countNonUnique(numbers));
     }
 
 
     public static void main(String[] args) {
 
+        Tester.subsequenceTest();
 
     }
 

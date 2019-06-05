@@ -1,9 +1,8 @@
 package Helper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Basics {
 
@@ -36,7 +35,7 @@ public class Basics {
 
     public static String reverseInPlace(String ip) {
         char[] chars = ip.toCharArray();
-        for(int i = 0, j = chars.length - 1; i <= j ; i++, j--) {
+        for (int i = 0, j = chars.length - 1; i <= j; i++, j--) {
             // swap i & j
             char temp = chars[i];
             chars[i] = chars[j];
@@ -105,6 +104,135 @@ public class Basics {
         }
 
         return subs;
+
+    }
+
+    public static HashSet<String> getAllSubsequencesOf(String[] ip) {
+
+        System.out.println(">> " + Arrays.toString(ip));
+
+        HashSet<String> subs = new HashSet<>();
+        if (ip.length == 1) {
+            subs.add(ip[0]);
+            return subs;
+        }
+
+        subs.add(String.join("", ip));
+
+        for (int i = 0; i < ip.length; i++) {
+
+            // divide the problem into one + rest[].
+            // then recurse over rest[]
+
+            // swap ith/partitioning entry with 0th entry. helps to subarray
+            String one = ip[i];
+            ip[i] = ip[0];
+            ip[0] = one;
+
+            // step 2 : create subarray[1 .. N] and get subsequences for it,
+            // add them to current
+            subs.addAll(getAllSubsequencesOf(Arrays.copyOfRange(ip, 1, ip.length)));
+
+        }
+
+        return subs;
+    }
+
+    /**
+     * Given Integer array, count the number of elements that occur more than once. EX: if ip = [1,3,3,4,4,4] there are two non unique elements: 3 and 4
+     *
+     * @param numbers
+     * @return
+     */
+    public static int countNonUnique(List<Integer> numbers) {
+
+        int duplicates = 0;
+
+        Collections.sort(numbers);
+        for (int i = 0; i < numbers.size() - 1; i++) {
+            int j = i + 1;
+            Integer a = numbers.get(i);
+            while (j < numbers.size() && numbers.get(j).equals(a)) {
+                j++;
+            }
+
+            if (j > i + 1) duplicates++;
+            i = j;
+            i--;
+
+        }
+
+        return duplicates;
+
+    }
+
+    /**
+     * A repeated word is a cse sensitive word that appears more than once in a sentence.
+     * delimeters:
+     * whitespace: tab, space
+     * others: ,:;-.
+     *
+     * @param s
+     * @return
+     */
+    public static String firstRepeatedWord(String s) {
+
+        String[] arr = s.split("[ \\t,:;-\\\\.]+");
+        String firstRepeatedCaseSensitiveWord = null;
+
+        for (int i = 0; i < arr.length; i++) {
+            int j = i + 1;
+            while (j < arr.length && !arr[i].equals(arr[j])) {
+                j++;
+            }
+
+            if (j < arr.length && arr[i].equals(arr[j])) {
+                firstRepeatedCaseSensitiveWord = arr[i];
+                break;
+            }
+        }
+
+        return firstRepeatedCaseSensitiveWord;
+    }
+
+
+    private static Integer firstLowerOrEqualPrice(int base, List<Integer> prices) {
+
+        Integer basePrice = prices.get(base);
+
+        for (int i = base + 1; i < prices.size(); i++) {
+            if (prices.get(i) <= basePrice) return prices.get(i);
+        }
+
+        return null;
+    }
+
+    public static void finalPrice(List<Integer> prices) {
+        // Write your code here
+
+        List<Integer> discountedPrices = new ArrayList<>(prices.size());
+        List<Integer> fullPriceIndexes = new ArrayList<>();
+
+        for (int i = 0; i < prices.size(); i++) {
+            Integer discount = firstLowerOrEqualPrice(i, prices);
+            Integer listedPrice = prices.get(i);
+
+            if (discount != null) {
+                discountedPrices.add(listedPrice - discount);
+            }else {
+                discountedPrices.add(listedPrice);
+                fullPriceIndexes.add(i);
+            }
+        }
+
+        System.out.println(discountedPrices.stream().mapToInt(value -> value).sum());
+        String fullPrices = fullPriceIndexes.stream().map(String::valueOf).collect(Collectors.joining(" "));
+
+        if (fullPriceIndexes.size() > 0) {
+            System.out.println(fullPrices);
+        } else {
+            System.out.println(" ");
+        }
 
     }
 
