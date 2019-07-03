@@ -196,6 +196,46 @@ public class Basics {
     }
 
 
+    public static void findDiff(String a, String b) {
+
+        System.out.println("========== start ==========");
+        System.out.println(a);
+        System.out.println(b);
+
+        String[] arr1 = a.trim().split("[ ,\\.;]+");
+        String[] arr2 = b.trim().split("[ ,\\.;]+");
+        int mismatchCount = 0;
+
+        String[] bigger = arr1;
+        String[] smaller = arr2;
+        String verdict = "greater than";
+
+        if (arr1.length < arr2.length) {
+            bigger = arr2;
+            smaller = arr1;
+            verdict = "less than";
+        }
+
+        int diffLength = Math.abs(bigger.length - smaller.length);
+
+        System.out.println(String.format("The first String is %s the second string by %d words",verdict,diffLength));
+
+        for (int i = 0; i < smaller.length; i++) {
+            if (smaller[i].equals(bigger[i])) {
+                // happy case, do nothing
+            } else {
+                mismatchCount++;
+                System.out.println(String.format("mismatch @position: %3d :: %s  <vs>  %s",i,bigger[i],smaller[i]));
+            }
+        }
+
+        System.out.println("Mismatch Count: " + mismatchCount);
+
+        System.out.println("========== finish ==========");
+
+    }
+
+
     private static Integer firstLowerOrEqualPrice(int base, List<Integer> prices) {
 
         Integer basePrice = prices.get(base);
@@ -219,7 +259,7 @@ public class Basics {
 
             if (discount != null) {
                 discountedPrices.add(listedPrice - discount);
-            }else {
+            } else {
                 discountedPrices.add(listedPrice);
                 fullPriceIndexes.add(i);
             }

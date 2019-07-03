@@ -59,10 +59,14 @@ public class Tester {
         System.out.println(Basics.countNonUnique(numbers));
     }
 
+    public static void stringDiffer(String a, String b) {
+        Basics.findDiff(a,b);
+    }
+
 
     public static void main(String[] args) {
 
-        Tester.subsequenceTest();
+        Tester.stringDiffer("This is a test", "This is another test");
 
     }
 
