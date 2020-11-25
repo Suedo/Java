@@ -1,0 +1,157 @@
+ a null null null null
+
+
+ a b null null null
+
+
+ a b c null null
+
+
+ a b c d null
+
+
+ a b c d e
+
+
+resizing array to size: 10
+ a b c d f null null null null null
+
+
+ a b c d f g null null null null
+
+
+ a b c d f g h null null null
+
+
+ a b c d f g h i null null
+
+
+ a b c d f g h i j null
+
+
+resizing array to size: 20
+ a b c d f g h i j k null null null null null null null null null null
+
+
+ a b c d f g h i j k l null null null null null null null null null
+
+
+a
+ null b c d f g h i j k l null null null null null null null null null
+
+
+b
+ null null c d f g h i j k l null null null null null null null null null
+
+
+c
+ null null null d f g h i j k l null null null null null null null null null
+
+
+d
+ null null null null f g h i j k l null null null null null null null null null
+
+
+f
+ null null null null null g h i j k l null null null null null null null null null
+
+
+g
+ null null null null null null h i j k l null null null null null null null null null
+
+
+h
+ null null null null null null null i j k l null null null null null null null null null
+
+
+resizing array to size: 10
+i
+ null j k l null null null null null null
+
+
+j
+ null null k l null null null null null null
+
+
+k
+ null null null l null null null null null null
+
+
+resizing array to size: 4
+l
+ null null null null
+
+
+resizing array to size: 2
+null
+ null null
+
+
+Exception in thread "main" java.lang.NullPointerException: size = 0
+	at ResizingCircularArray.dequeue(ResizingCircularArray.java:32)
+	at ResizingCircularArray.main(ResizingCircularArray.java:76)
+
+
+/*
+the above output is for the input : (mentioned in another file , but stating here just in case..)
+enq a
+disp
+enq b
+disp
+enq c
+disp
+enq d
+disp
+enq e
+disp
+enq f
+disp
+enq g
+disp
+enq h
+disp
+enq i
+disp
+enq j
+disp
+enq k
+disp
+enq l
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+deq
+disp
+stop
+
+*/

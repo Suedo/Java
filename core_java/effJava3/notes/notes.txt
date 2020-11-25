@@ -1,0 +1,98 @@
+------------------------------------------------------------------------------------------------------------------------
+ENUMS:
+------------------------------------------------------------------------------------------------------------------------
+
+ENUMS are the best JAVA singletons.
+https://stackoverflow.com/a/26285731/2715083
+
+
+------------------------------------------------------------------------------------------------------------------------
+Functional Interfaces
+------------------------------------------------------------------------------------------------------------------------
+
+Always annotate an interface you wish to use as a Functional Interface, with the @FunctionalInterface annotation:
+so that the intent is clear, and in future, If someone tries to add an overloaded `apply` method, the compiler will
+scream, and let them know that this can only have one `apply` method as it's a @FunctionalInterface
+
+IMP:
+> UnaryOperator<T>: T               :: Takes and Returns same type, one input param
+> BinaryOperator<T>: T              :: Takes and Returns same types, two input params
+> Predicate<T>: boolean             :: Test
+> Function<T, R>: R                 ::
+> Supplier<T>: T                    :: source of value
+> Consumer<T>: void                 :: sink of value
+
+Full List:
+https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/package-summary.html
+
+
+------------------------------------------------------------------------------------------------------------------------
+Josh Bloch's own talk at Devoxx France
+https://www.youtube.com/watch?v=hSfylUXhpkA
+------------------------------------------------------------------------------------------------------------------------
+
+1. Prefer lambda to anon classes
+2. Prefer method ref to lambdas
+3. Favor Standard functional interfaces
+4. Use Streams judiciously
+5. Use caution when making streams parallel
+
+
+6. You must understand Generics to use Lambdas, as it uses a lot of Type Inference, which is based on Generics and Types
+7. Avoid streams for chars processing, as no direct support, and char stream is an IntStream! confusing! aslo,
+    thus, needs conversion, and probably slower
+
+
+More detailed disccusion of above points:
+
+#1) If you need to use `this`, use anon classes as lambda can't access themselves & `this` refers to it's enclosing class
+
+#2) if a lambda is more than a few lines, put it in a named method.
+    Example of method references for lambda can be seen in ComparingStuff.txt
+    The more params you have in your lambda, method refs are a bigger win, as they don't need any params stated. Ex:
+        map.merge(key, 1, (count, incr) -> count + incr)    // lambda
+        map.merge(key, 1, Integer::sum)                     // method ref
+
+    5 different types of method refs:
+
+    i) Static
+        Integer::parseInt           // ref
+        str -> Integer.parseInt     // lambda equiv
+
+    ii) Bound
+        Instant.now()::isAfter          // ref
+        Instant then = Instant.now()    // lambda equiv, 2 lines!
+        t -> then.isAfter(t)
+
+    iii) Unbound
+        String::toLowercase         // ref
+        str -> str.toLowercase      // lambda equiv
+
+    iv) Class Constructor
+        TreeMap<k,v>::new           //ref
+        () -> new TreeMap<k,v>()    // lambda equiv
+
+    v) Array Constructor
+        int[]::new                  // ref
+        len -> new int[len]         // lambda equiv
+
+
+#5) About using caution when making streams parallel:
+
+    Don't use stream in cases like:
+        i) Stream.iterate() is used to generate the stream
+        ii) intermediate `limit()` is used. Note: using limit computes extra elements, which are then thrown away
+            as such, limit on stream takes more time, simply, ignoring all other factors
+
+    When to use streams:
+        i) When working with standard collections like Arrays, ArrayList, HashMap/Set, ConcurrentHashMap, int & long ranges
+            why ? because these DS have `Predictable Splitting` and good locality of reference
+        ii) fast/easily parallelizable operations in the terminal method
+            ex: filter, reduce, count etc.
+            ** Collection in terminal method is not so good
+
+------------------------------------------------------------------------------------------------------------------------
+MISC
+------------------------------------------------------------------------------------------------------------------------
+
+Default methods: https://stackoverflow.com/a/43687853/2715083

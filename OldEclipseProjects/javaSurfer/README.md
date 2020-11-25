@@ -1,4 +1,0 @@
-JavaSurfer
-==========
-
-random java doodles

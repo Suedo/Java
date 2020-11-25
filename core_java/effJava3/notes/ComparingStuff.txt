@@ -1,0 +1,38 @@
+
+A good generic way to compare stuff, using `Comparator.comparing`
+------------------------------------------------------------------------------------------------------------------------
+
+Comparator.comparing(F1, F2?)
+
+    F1: Key extractor, a function that gets the value to sort
+    F2: Optional, a comparator to override the default ordering of the value obtained by F1
+
+  Example:
+    Comparator.comparing(
+        Employee::getName,                  // F1
+        (s1, s2) -> s2.compareTo(s1)        // F2, defines a custom ordering, here: reverse ordering
+    )
+
+
+
+Specific Implementations provided by Java
+------------------------------------------------------------------------------------------------------------------------
+
+1. ComparingInt(f)
+2. ComparingDouble(f)
+3. ComparingLong(f)
+
+    where `f` is the KeyExtractor function.
+
+As per Josh Block, Effective Java v3, we should favor method references to lambdas, as such, we can use any of the above
+comparator methods with a collection in the following idiomatic way:
+
+    words.sort(comparingInt(String::length)) // words: List[String]
+
+    ^^ which is similar to:
+    a) Collections.sort(words, (s1,s2) -> Integer.compare(s1.length, s2.length))
+        or
+    b) Collections.sort(words, comparingInt(String::length))
+
+The magic behind of all this is `Type Inference`
+

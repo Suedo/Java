@@ -1,1 +1,0 @@
-enq a;enq b;enq c;enq d;enq e;enq f;enq g;enq h;enq i;enq j;enq k;enq l;deq;deq;deq;deq;deq;enq a;enq b;enq c;enq d;enq e;enq f;enq g;enq h;enq i;enq j;enq k;enq l;enq m;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;deq;disp;stop

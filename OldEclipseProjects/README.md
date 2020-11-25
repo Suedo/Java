@@ -1,4 +1,0 @@
-Java
-====
-
-random java codes
