@@ -3,15 +3,7 @@ public class ThreadCoordination {
   public static class LongRunningTask extends Thread {
     @Override
     public void run() {
-      for (int i = 0; i < 1000; i++) {
-        System.out.print(i + " ");
-        try {
-          Thread.sleep(10);
-        } catch (InterruptedException e) {
-          System.out.println("prematurely interrupted, at i = " + i);
-          return; // imp, else thread will keep looping, as otherwise exception is not handled, but just logged
-        }
-      }
+      MyThreadUtils.simulateWork(1000);
     }
   }
   
