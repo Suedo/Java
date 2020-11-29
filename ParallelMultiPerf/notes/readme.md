@@ -14,3 +14,19 @@
                   Check `ThreadJoinDemo.java`
     2. remedy 2: set the child thread to `daemon` via `thread.setDaemon(true)`. Thus, when the main thread terminates, these will also be terminated, and we get timely completion of `main`
     3. remedy 3: Using #2 of `Catching Interrupts` explained above, we can write custom logic for how to interrupt and catch long running threads
+    
+## Performance 
+
+- Latency: amount of time to complete a task. unit: time
+- Throughput: amount of tasks completed in given/unit time. unit: tasks/time
+- lower latency === higher throughput
+
+### Cost of parallelization & Aggregation
+
+Total cost is a sum of the below: 
+1. Breaking a task into multiple smaller ones
+2. Creating threads, passing tasks to the created threads
+3. Time gap between `thread.start()` and thread getting scheduled
+4. Time to wait until the last of the spun-up threads complete, and signals the aggregating thread (ex, `main`)
+5. Time for `main` to get the `signal`
+6. Aggregation of thread results into a single artifact
