@@ -1,3 +1,5 @@
+package pogrebinsky;
+
 import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;

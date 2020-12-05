@@ -1,3 +1,5 @@
+package pogrebinsky;
+
 public class ThreadBasic {
   public static void oneBasicThreadDemo() {
     System.out.println("before");

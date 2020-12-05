@@ -1,3 +1,5 @@
+package pogrebinsky;
+
 public class ThreadCoordination {
 
   public static class LongRunningTask extends Thread {
