@@ -30,3 +30,49 @@ Total cost is a sum of the below:
 4. Time to wait until the last of the spun-up threads complete, and signals the aggregating thread (ex, `main`)
 5. Time for `main` to get the `signal`
 6. Aggregation of thread results into a single artifact
+
+
+## ParallelStreams
+
+### Order
+The order of elements in the output of a streamed calculation depends upon the spliterator implementation of the dataStructure/collection being used. 
+For Example: ArrayList's spliterator is ordered, so stream processing of an arraylist returns elements in the same order.
+However, A Set has no ordering, neither does it's spliterator, hence, the output from a stream operation is random.
+
+### Performance
+1. The choice of datastructure used in the stream operation contributes to speed. Example: A stream opeartion on an ArrayList will be faster than LinkedList. (empirically seen, reason unsure)
+
+### Points to note
+1. Careful with using reduce() with parallel streams. The identity must be correct, as it gets applied to every chunk of parallel processing, and can potentially lead to incorrect results
+
+
+## CompletableFuture
+
+### QuickPoints
+
+- the 'async' versions of methods gives provisions to run the function on new threads. It also has overloaded methods that take in a threadpool to run the functions in, 
+instead of the common forkjoin pool. Only use when visible slowness due to threads blocking up. Otherwise, recommended to use non-async methods, to save on thread context switch overhead
+
+- `runAsync`/`supplyAsync` -> methods to use to start off the CompletableFuture, by providing either a `runnable` or a `supplier` respectively. Since most of the time, we intend to chain this call to some further processing, 
+better to use `supplier` as `runnable` returns void.
+
+### Chaining 
+
+- `thenApply` -> applies a value to the result of the previous completionStage. It is like `map` from streams api : `CompletableFuture -> Value`
+- `thenCompose` -> feeds/pipes the result of the previous completionStage to another CompletableFuture. It is like `flatmap` of the streams api :  `CompletableFuture -> CompletableFuture`
+- `thenCombine` -> useful for chaining **Independent** futures together, and runs them in parallel
+
+On the note of running independent Futures parallely, below is a simple idiom to collect their end results:
+
+```
+  String combined = Stream.of(future1, future2, future3)
+      .map(CompletableFuture::join)                     // wait for all of them to finish.
+      .collect(Collectors.joining(" "));
+```
+
+To Note: there is a `allOf()` method available, but that returns `CompletableFuture<Void>`, i.e void, so cannot be chained, so not that useful. Hence we prefer `join()`.
+
+### Error Handling:
+
+https://mincong.io/2020/05/30/exception-handling-in-completable-future/
+  
